@@ -24,9 +24,8 @@ var LoaderInfo = new Class({
 	 */
 	initialize: function(RunOnObjects, DoneMsg, LoadingCompleteFunction) {
 		for (var ic = 0; ic < RunOnObjects.length; ic ++) {
-			var CurrentObjectsToLoad = RunOnObjects[ic]['data'].length;
-			this.TotalObjectsForLoading += CurrentObjectsToLoad;
-			this.ArrayDataWithMessages.push({'count': CurrentObjectsToLoad, 'msg': RunOnObjects[ic]['msg']});
+			this.TotalObjectsForLoading += RunOnObjects[ic]['data'].length;
+			this.ArrayDataWithMessages.push({'limit': this.TotalObjectsForLoading, 'msg': RunOnObjects[ic]['msg']});
 		}
 		this.AllDoneMessage = DoneMsg;
 		this.LoadingCompleteFunction = LoadingCompleteFunction;
@@ -87,8 +86,8 @@ var LoaderInfo = new Class({
 			return;
 		}
 		for (var ic = CurrentArrayLength - 1; ic >= 0; ic --) {
-			if (this.CurrentObjectsLoaded < this.ArrayDataWithMessages [ic] ['count']) {
-				NewOutputMsgString = this.ArrayDataWithMessages [ic] ['msg'];
+			if (this.CurrentObjectsLoaded < this.ArrayDataWithMessages[ic]['limit']) {
+				NewOutputMsgString = this.ArrayDataWithMessages[ic]['msg'];
 			}
 		}
 		this.WriteMessageToLoadScreen(NewOutputMsgString);
@@ -100,7 +99,9 @@ var LoaderInfo = new Class({
 	 */
 	FadeScreenAndClose: function() {
 		$('js-loading-info-screen').tween('opacity', 0);
-		setTimeout("$('js-loading-info-screen').setStyle('display', 'none')", 2000);
+		setTimeout(function() {
+			$('js-loading-info-screen').setStyle('display', 'none');
+		}, 2000);
 	}
 
 });
