@@ -1,0 +1,3 @@
+[submodule "frontend/vendor/roundedfader"]
+	path = frontend/vendor/roundedfader
+	url = https://github.com/psnet/roundedfader.git
