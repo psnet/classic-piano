@@ -1,0 +1,325 @@
+/**
+ * Classic Piano
+ *
+ * @copyright Serge Pustovit (PSNet), 2008 - 2015
+ * @author    Serge Pustovit (PSNet) <light.feel@gmail.com>
+ *
+ * @link      http://psnet.lookformp3.net
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	min-width: 1200px;
+	font-family: Arial;
+	font-size: 16px;
+	color: #000;
+	background: #777 url("https://source.unsplash.com/random/1200x800") no-repeat fixed center center / 100% auto;
+}
+
+a {
+	color: #009fcb;
+	outline: none;
+}
+
+/* keyboard */
+
+.piano-wrapper {
+	overflow: hidden;
+	clear: both;
+	background: #444444;
+}
+
+.piano-wrapper .keys-container {
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 0 5px 5px;
+	height: 272px;
+}
+
+.piano-wrapper .keys-container > div {
+	cursor: pointer;
+	float: left;
+	-moz-user-select: none !important;
+	-webkit-user-select: none !important;
+	user-select: none !important;
+	border-radius: 5px;
+}
+
+.piano-wrapper .keys-container .white-key {
+	-moz-box-shadow: 2px 2px 3px #333333;
+	-webkit-box-shadow: 2px 2px 3px #333333;
+	box-shadow: 2px 2px 3px #333333;
+	height: 270px;
+	width: 40px;
+	border: 1px solid rgba(20, 20, 20, 0.7);
+	background: #FEFEFE;
+}
+
+.piano-wrapper .keys-container .white-key.active-key {
+	height: 273px;
+	background: #EEE;
+	background: -moz-linear-gradient(center top, #FEFEFE, #EEEEEE);
+	background: -webkit-gradient(linear, left top, left bottom, from(#FEFEFE), to(#EEEEEE));
+}
+
+.piano-wrapper .keys-container .black-key {
+	background: #222222;
+	height: 170px;
+	margin: 0 -11px;
+	width: 22px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 2px 2px 3px #333333;
+	-moz-box-shadow: 2px 2px 3px #333333;
+	-webkit-box-shadow: 2px 2px 3px #333333;
+}
+
+.piano-wrapper .keys-container .black-key.active-key {
+	height: 171px;
+	background: #444;
+	background: -moz-linear-gradient(center top, #222222, #444444);
+	background: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#444444));
+}
+
+.piano-wrapper .keys-container .black-key .black-key-shadow {
+	background: #444;
+	background: -moz-linear-gradient(center top, #222222, #555555);
+	background: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#555555));
+	bottom: 0;
+	height: 12px;
+	position: absolute;
+	width: 22px;
+	border-radius: 5px;
+}
+
+.piano-wrapper .keys-container .black-key.active-key .black-key-shadow {
+	height: 11px;
+	background: #444;
+	background: -moz-linear-gradient(center top, #444444, #777777);
+	background: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#777777));
+}
+
+/* loading screen */
+
+.loading-info-screen {
+	background: rgba(20, 20, 20, 0.9);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.loading-info-screen .container {
+	border: 1px solid #000000;
+	height: 100px;
+	margin: 100px auto 0;
+	width: 500px;
+	background: rgba(250, 250, 250, 0.5);
+	cursor: default;
+}
+
+.loading-info-screen .container .loading-line {
+	border: 1px solid #FFFFFF;
+	height: 20px;
+	margin: 20px auto;
+	width: 400px;
+}
+
+.loading-info-screen .container .loading-line .loading-bar-line-bg {
+	background: #EEE;
+	background: -moz-linear-gradient(center top, #FFFFFF 0%, #999999 20%, #555555 80%, #000000 100%) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(20%, #999999), color-stop(80%, #555555), color-stop(100%, #000000));
+	border: 1px solid black;
+	height: 100%;
+	margin: -1px;
+	width: 0;
+	color: #FFFFFF;
+	font-family: Verdana;
+	font-size: 15px;
+	text-align: center;
+	text-shadow: 0 1px 0 #555555;
+	overflow: hidden;
+}
+
+.loading-info-screen .container .info-message {
+	color: #FFFFFF;
+	margin: 0 20px;
+	text-shadow: 0 1px 0 #555555;
+}
+
+/* interface - top */
+
+.synth-header {
+	background: hsla(0, 0%, 0%, 0) -moz-linear-gradient(center top, hsl(0, 0%, 60%) 0%, hsl(0, 0%, 13%) 30%, hsl(0, 0%, 27%) 100%) repeat scroll 0 0;
+	background: -moz-linear-gradient(top, #999999 0%, #222222 30%, #444444 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #999999), color-stop(30%, #222222), color-stop(100%, #444444));
+	position: relative;
+	height: 100px;
+}
+
+.synth-header .info-window {
+	border: 3px solid #333;
+	height: 50px;
+	width: 400px;
+	background: #2989D8;
+	background: -moz-linear-gradient(top, #FFFFFF 0%, #2989D8 50%, #207cca 50%, #7db9e8 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(50%, #2989D8), color-stop(50%, #207cca), color-stop(100%, #7db9e8));
+	padding: 5px 10px;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: 0 1px 2px #000000;
+	left: 463px;
+	position: absolute;
+	top: 25px;
+	box-shadow: 0 2px 2px #fff inset;
+	line-height: 49px;
+	text-align: center;
+}
+
+.synth-header .synth-name {
+	color: #000000;
+	text-shadow: 0 -1px 2px #555555;
+	text-transform: uppercase;
+	cursor: default;
+	left: 60px;
+	position: absolute;
+	top: 35px;
+	font: bold 50px/50px "Lobster", cursive;
+}
+
+/* regulator wrapper */
+
+.synth-header .knob-wrapper {
+	position: absolute;
+	right: 17px;
+	top: 40px;
+}
+
+.synth-header .knob-wrapper .label {
+	color: #FFFFFF;
+	font-weight: bold;
+	margin: 5px 0;
+	text-align: center;
+	text-shadow: 0 0 8px #88CCEE;
+	cursor: default;
+	font-family: Play;
+}
+
+.synth-header .key-help-switch {
+	position: absolute;
+	right: 55px;
+	top: 305px;
+}
+
+/* interface - misc */
+
+.synth-wrapper {
+	box-shadow: 0 5px 10px hsl(0, 0%, 27%);
+	margin: 5% auto 20px;
+	width: 1050px;
+}
+
+.synth-wrapper .inner {
+	border-color: #888 hsl(0, 0%, 27%) #393939;
+	border-image: none;
+	border-radius: 2px;
+	border-style: solid;
+	border-width: 1px;
+}
+
+/* footer */
+
+.help-info {
+	margin: 0 auto 20px;
+	width: 1050px;
+}
+
+.help-info .inner {
+	background: rgba(100, 100, 100, 0.88) none repeat scroll 0 0;
+	padding: 20px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 18px;
+	line-height: 25px;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.help-info .hl {
+	background: rgba(240, 240, 240, 0.75) none repeat scroll 0 0;
+	border-radius: 2px;
+	display: inline-block;
+	padding: 0 4px 1px;
+	font-family: Play;
+	margin: 1px;
+	min-width: 15px;
+	text-align: center;
+}
+
+.help-info .inner > div {
+	margin-bottom: 11px;
+}
+
+.help-info .inner > div:last-child {
+	margin-bottom: 0;
+}
+
+.ta-c {
+	text-align: center;
+}
+
+/* custom fader */
+
+.rounded-fader-custom-metal-knob .rounded-fader {
+	height: 115px;
+	width: 115px;
+}
+
+.rounded-fader-custom-metal-knob .rounded-fader .internal-volume .volume-container {
+	background: hsla(0, 0%, 0%, 0) url("../images/metal-knob.jpg") no-repeat scroll center center / 100% 100%;
+	border-radius: 50%;
+}
+
+.rounded-fader-custom-metal-knob .rounded-fader .internal-volume .volume-container .volume-line {
+	border: 1px solid #555;
+	left: 0;
+}
+
+/* small knob */
+
+.rounded-fader-custom-metal-knob.keys-help .rounded-fader {
+	width: 40px;
+	height: 40px;
+}
+
+/* helper */
+
+.key-helper {
+	background: #d2e0e4 none repeat scroll 0 0;
+	color: #0eb3d7;
+	font-size: 20px;
+	position: relative;
+	text-align: center;
+	text-shadow: 0 1px 1px #fff;
+	line-height: 30px;
+	text-transform: uppercase;
+	transition: background-color 0.14s ease 0s;
+	box-shadow: 0 2px 2px #333 inset;
+}
+
+.key-helper.on-white-key {
+	top: 230px;
+}
+
+.key-helper.on-black-key {
+	top: 125px;
+}
+
+.active-key .key-helper {
+	background: #009fcb none repeat scroll 0 0;
+	color: white;
+	text-shadow: 0 1px 1px #000;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Classic Piano Online Demo</title>
+
+	<link rel="stylesheet" type="text/css" href="frontend/css/style.css" />
+
+	<script type="text/javascript" src="frontend/vendor/mootools/mootools-1.2.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="frontend/vendor/roundedfader/src/roundedfader.css" />
+	<script type="text/javascript" src="frontend/vendor/roundedfader/src/roundedfader.js"></script>
+
+	<script type="text/javascript" src="frontend/vendor/soundmanager2/soundmanager2-nodebug-jsmin.js"></script>
+
+	<script type="text/javascript" src="frontend/js/lang.js"></script>
+	<script type="text/javascript" src="frontend/js/message.js"></script>
+
+	<script type="text/javascript" src="frontend/js/soundprocessor.js"></script>
+	<script type="text/javascript" src="frontend/js/loaderinfo.js"></script>
+	<script type="text/javascript" src="frontend/js/init.js"></script>
+
+	<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Play&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+	<meta name="description" content="Classic Piano Online Demo" />
+	<meta name="keywords" content="Classic Piano, piano, фортепиано" />
+</head>
+<body>
+	<div class="synth-wrapper">
+		<div class="inner">
+			<div class="synth-header">
+				<div class="synth-name">Classic Piano</div>
+				<div class="info-window" id="js-info-window"></div>
+
+				<div class="knob-wrapper">
+					<div id="js-volume-fader"></div>
+
+					<div class="label">Volume</div>
+				</div>
+
+				<div class="knob-wrapper key-help-switch">
+					<div id="js-key-help-switch"></div>
+
+					<div class="label">Help</div>
+				</div>
+
+			</div>
+
+			<div class="piano-wrapper">
+				<div class="keys-container">
+					<!-- First octave -->
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+
+					<!-- Second octave -->
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+
+					<!-- Third octave -->
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+					<div class="black-key js-black-key">
+						<div class="black-key-shadow"></div>
+					</div>
+					<div class="white-key js-white-key"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="help-info">
+		<div class="inner">
+			<div>
+				You can use your keyboard to make a sound! Also you can press multiple keys at once! For example, here is keys for song
+				<div class="hl">The Verve - Bittersweet Symphony</div>:
+			</div>
+			<div>
+				<div class="hl">O</div> <div class="hl">C</div> <div class="hl">O</div> <div class="hl">X</div> <div class="hl">I</div> <div class="hl">X</div>
+				<br />
+				<div class="hl">B</div> <div class="hl">X</div> <div class="hl">B</div>
+				<br />
+				<div class="hl">[</div> <div class="hl">X</div> <div class="hl">[</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="help-info">
+		<div class="inner ta-c">
+			<div>
+				&copysr; <a href="http://psnet.lookformp3.net/">PSNet</a>, 2011 - 2015. All sounds are synthesized by Pou Le Serg
+				(<a href="https://soundcloud.com/pouleserg" rel="nofollow">soundcloud.com/pouleserg</a>). All rights reserved.
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
