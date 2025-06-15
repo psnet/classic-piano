@@ -55,7 +55,7 @@ var LoaderInfo = new Class({
 	UpdateLoadstatus: function () {
 		this.CurrentObjectsLoaded++;
 
-		var NewPercentageLoaded = parseInt((this.CurrentObjectsLoaded * 100) / this.TotalObjectsForLoading);
+		var NewPercentageLoaded = Math.round((this.CurrentObjectsLoaded * 100) / this.TotalObjectsForLoading);
 
 		if (NewPercentageLoaded > 100) {
 			return false;

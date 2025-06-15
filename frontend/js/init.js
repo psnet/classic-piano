@@ -12,8 +12,8 @@
  */
 var LangSources = {
 	'en': {
-		Not_English_Language: 'Unsupported key',
-		Loading_Done: 'Loading complete',
+		UnsupportedKey: 'Unsupported key',
+		LoadingDone: 'Loading complete',
 		FailedLoadingFile: 'Can\'t load file',
 		LoadingSWFModulesFailed: 'Can\'t load additional modules',
 		Volume: 'Volume: %%val%%%',
@@ -24,7 +24,7 @@ var LangSources = {
 		HideHelp: 'Keyboard help closed',
 		WhiteKeyNum: 'White key "%%num%%"',
 		BlackKeyNum: 'Black key "%%num%%"'
-	}
+	},
 };
 
 /**
@@ -80,7 +80,6 @@ var piano = (function ($) {
 		throw new Error('Unknown type to get id "' + sType + '"');
 	};
 
-
 	/**
 	 * Translate keycode into sound
 	 *
@@ -105,12 +104,11 @@ var piano = (function ($) {
 				this.StopSoundFromBlackKey(BlackButtonOrder);
 			}
 		} else {
-			return this.Msg.Show(this.l.g('Not_English_Language'));
+			return this.Msg.Show(this.l.g('UnsupportedKey'));
 		}
 
 		return true;
 	};
-
 
 	/**
 	 * Get the key sequence number
@@ -120,15 +118,14 @@ var piano = (function ($) {
 	 * @return bool|int
 	 */
 	this.GetPCButtonOrder = function (PCButtonCode, ButtonsToKeysArray) {
-		for (var ic = 0; ic < ButtonsToKeysArray.length; ic++) {
-			if (ButtonsToKeysArray[ic] == PCButtonCode) {
-				return ic;
+		for (var i = 0; i < ButtonsToKeysArray.length; i++) {
+			if (ButtonsToKeysArray[i] == PCButtonCode) {
+				return i;
 			}
 		}
 
 		return false;
 	};
-
 
 	/**
 	 * Play white key sound
@@ -141,7 +138,6 @@ var piano = (function ($) {
 		soundManager.play(this.LiveSoundProcessor.Options.WhiteKey_StringID + KeyNumber, { volume: this.LiveSoundProcessor.Options.Volume });
 	};
 
-
 	/**
 	 * Stop white key sound
 	 *
@@ -151,7 +147,6 @@ var piano = (function ($) {
 		$(this.GetKeyId('white', KeyNumber)).removeClass('active-key');
 		//soundManager.stop(LiveSoundProcessor.Options.WhiteKey_StringID + KeyNumber);
 	};
-
 
 	/**
 	 * Play black key sound
@@ -163,7 +158,6 @@ var piano = (function ($) {
 		this.Msg.Show(this.l.g('BlackKeyNum', { num: this.KeyboardPCControls_BlackKeysLetter[KeyNumber].toUpperCase() }));
 		soundManager.play(this.LiveSoundProcessor.Options.BlackKey_StringID + KeyNumber, { volume: this.LiveSoundProcessor.Options.Volume });
 	};
-
 
 	/**
 	 * Stop black key sound
@@ -195,7 +189,7 @@ window.addEvent('domready', function () {
 	piano.LoadingInfo = new LoaderInfo([
 		{ 'data': piano.KeyboardPCControls_WhiteKeys, 'msg': piano.l.g('LoadingWhiteKeys') },
 		{ 'data': piano.KeyboardPCControls_BlackKeys, 'msg': piano.l.g('LoadingBlackKeys') }
-	], piano.l.g('Loading_Done'), function () {
+	], piano.l.g('LoadingDone'), function () {
 		piano.Msg.Show(piano.l.g('AllComplete'))
 	});
 
@@ -228,12 +222,15 @@ window.addEvent('domready', function () {
 				piano.MadeSoundFromWhiteKey(this.KeyLogicNumber);
 			}
 		};
+
 		KeyboardWhiteControls[ic].onmousedown = function () {
 			piano.MadeSoundFromWhiteKey(this.KeyLogicNumber);
 		};
+
 		KeyboardWhiteControls[ic].onmouseout = function () {
 			piano.StopSoundFromWhiteKey(this.KeyLogicNumber);
 		};
+
 		KeyboardWhiteControls[ic].onmouseup = function () {
 			piano.StopSoundFromWhiteKey(this.KeyLogicNumber);
 		};
@@ -254,12 +251,15 @@ window.addEvent('domready', function () {
 				piano.MadeSoundFromBlackKey(this.KeyLogicNumber);
 			}
 		};
+
 		KeyboardBlackControls[ic].onmousedown = function () {
 			piano.MadeSoundFromBlackKey(this.KeyLogicNumber);
 		};
+
 		KeyboardBlackControls[ic].onmouseout = function () {
 			piano.StopSoundFromBlackKey(this.KeyLogicNumber);
 		};
+
 		KeyboardBlackControls[ic].onmouseup = function () {
 			piano.StopSoundFromBlackKey(this.KeyLogicNumber);
 		};
