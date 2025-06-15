@@ -1,16 +1,16 @@
 Classic Piano Online Demo
 ===========
 
-Онлайн эмулятор классического фортепиано
+Online emulator of classical piano
 
-Демо
+Demo
 ---
 
-http://psnet.github.io/classic-piano
+[http://psnet.github.io/classic-piano](http://psnet.github.io/classic-piano)
 
-Лицензия
+License
 ---
 
-(P) PSNet 2015, http://psnet.lookformp3.net
+(P) PSNet 2015, https://github.com/psnet
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)

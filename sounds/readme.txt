@@ -1,7 +1,8 @@
 
 StreamMuz project - online software synthesizer.
+
 (P) PSNet, 2008 - 2015
-http://psnet.lookformp3.net/
+https://github.com/psnet
 
 
 All sounds are synthesized by Pou Le Serg (https://soundcloud.com/pouleserg)

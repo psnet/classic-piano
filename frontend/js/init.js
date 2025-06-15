@@ -1,14 +1,14 @@
 /**
  * Classic Piano
  *
- * @copyright Serge Pustovit (PSNet), 2008 - 2015
- * @author    Serge Pustovit (PSNet) <light.feel@gmail.com>
+ * @copyright Serhii Pustovit (PSNet), 2008 - 2015
+ * @author    Serhii Pustovit (PSNet) <light.feel@gmail.com>
  *
- * @link      http://psnet.lookformp3.net
+ * @link      https://github.com/psnet
  */
 
 /**
- * Текстовки
+ * Texts
  */
 var LangSources = {
 	'en': {
@@ -27,65 +27,65 @@ var LangSources = {
 	}
 };
 
-
 /**
- * Хелперы
+ * Helpers
  */
-var piano = (function($) {
+var piano = (function ($) {
 
 	/**
-	 * 21 клавиша = 3 октавы * 7 клавиш
+	 * 21 keys = 3 octaves * 7 keys
 	 */
 	this.KeyboardPCControls_WhiteKeysLetters = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'];
 	this.KeyboardPCControls_WhiteKeys = [65, 83, 68, 70, 71, 72, 74, 75, 76, 59, 222, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191];
 	/**
-	 * 15 клавиша = 3 октавы * 5 клавиш
+	 * 15 keys = 3 octaves * 5 keys
 	 */
-	this.KeyboardPCControls_BlackKeysLetter =['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', '1', '2'];
+	this.KeyboardPCControls_BlackKeysLetter = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', '1', '2'];
 	this.KeyboardPCControls_BlackKeys = [81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 220, 49, 50];
 
 	/**
-	 * текстовки
+	 * texts
 	 */
 	this.l = null;
 	/**
-	 * экран
+	 * display
 	 */
 	this.Msg = null;
 	/**
-	 * звук
+	 * sound
 	 */
 	this.LiveSoundProcessor = null;
 	/**
-	 * прогресс загрузки
+	 * loading progress
 	 */
 	this.LoadingInfo = null;
 	/**
-	 * статус нажатия кнопки мыши
+	 * mouse button press status
 	 */
 	this.isMouseDown = false;
 
 
 	/**
-	 * Получить ид клавиши по типу и ид (номеру)
+	 * Get key id by type and id (number)
 	 *
-	 * @param sType		тип ('white', 'black')
-	 * @param sId		ид
+	 * @param sType		type ('white', 'black')
+	 * @param sId		id
 	 * @return string
 	 */
-	this.GetKeyId = function(sType, sId) {
+	this.GetKeyId = function (sType, sId) {
 		if (sType == 'white' || sType == 'black') {
 			return this.LiveSoundProcessor.Options[sType == 'white' ? 'WhiteKey_StringID' : 'BlackKey_StringID'] + sId;
 		}
+
 		throw new Error('Unknown type to get id "' + sType + '"');
 	};
 
 
 	/**
-	 * Транслировать код клавиши в звук
+	 * Translate keycode into sound
 	 *
-	 * @param CurrentKeyCode		код
-	 * @param ActionType			нажато/отжато
+	 * @param CurrentKeyCode		code
+	 * @param ActionType			pressed / unpressed
 	 * @return bool|string
 	 */
 	this.MadeTranslitPCKeyboardToPiano = function (CurrentKeyCode, ActionType) {
@@ -107,41 +107,43 @@ var piano = (function($) {
 		} else {
 			return this.Msg.Show(this.l.g('Not_English_Language'));
 		}
+
 		return true;
 	};
 
 
 	/**
-	 * Получить порядковый номер клавиши
+	 * Get the key sequence number
 	 *
 	 * @param PCButtonCode
 	 * @param ButtonsToKeysArray
 	 * @return bool|int
 	 */
 	this.GetPCButtonOrder = function (PCButtonCode, ButtonsToKeysArray) {
-		for (var ic = 0; ic < ButtonsToKeysArray.length; ic ++) {
+		for (var ic = 0; ic < ButtonsToKeysArray.length; ic++) {
 			if (ButtonsToKeysArray[ic] == PCButtonCode) {
 				return ic;
 			}
 		}
+
 		return false;
 	};
 
 
 	/**
-	 * Воспроизвести звук белой клавиши
+	 * Play white key sound
 	 *
 	 * @param KeyNumber
 	 */
 	this.MadeSoundFromWhiteKey = function (KeyNumber) {
 		$(this.GetKeyId('white', KeyNumber)).addClass('active-key');
-		this.Msg.Show(this.l.g('WhiteKeyNum', {num: this.KeyboardPCControls_WhiteKeysLetters[KeyNumber].toUpperCase()}));
-		soundManager.play(this.LiveSoundProcessor.Options.WhiteKey_StringID + KeyNumber, {volume: this.LiveSoundProcessor.Options.Volume});
+		this.Msg.Show(this.l.g('WhiteKeyNum', { num: this.KeyboardPCControls_WhiteKeysLetters[KeyNumber].toUpperCase() }));
+		soundManager.play(this.LiveSoundProcessor.Options.WhiteKey_StringID + KeyNumber, { volume: this.LiveSoundProcessor.Options.Volume });
 	};
 
 
 	/**
-	 * Остановить звук белой клавиши
+	 * Stop white key sound
 	 *
 	 * @param KeyNumber
 	 */
@@ -152,19 +154,19 @@ var piano = (function($) {
 
 
 	/**
-	 * Воспроизвести звук черной клавиши
+	 * Play black key sound
 	 *
 	 * @param KeyNumber
 	 */
 	this.MadeSoundFromBlackKey = function (KeyNumber) {
 		$(this.GetKeyId('black', KeyNumber)).addClass('active-key');
-		this.Msg.Show(this.l.g('BlackKeyNum', {num: this.KeyboardPCControls_BlackKeysLetter[KeyNumber].toUpperCase()}));
-		soundManager.play(this.LiveSoundProcessor.Options.BlackKey_StringID + KeyNumber, {volume: this.LiveSoundProcessor.Options.Volume});
+		this.Msg.Show(this.l.g('BlackKeyNum', { num: this.KeyboardPCControls_BlackKeysLetter[KeyNumber].toUpperCase() }));
+		soundManager.play(this.LiveSoundProcessor.Options.BlackKey_StringID + KeyNumber, { volume: this.LiveSoundProcessor.Options.Volume });
 	};
 
 
 	/**
-	 * Остановить звук черной клавиши
+	 * Stop black key sound
 	 *
 	 * @param KeyNumber
 	 */
@@ -178,131 +180,131 @@ var piano = (function($) {
 }).call(piano || {}, $);
 
 
-window.addEvent('domready', function() {
+window.addEvent('domready', function () {
 
 	piano.l = new Lang(LangSources);
 
 	/**
-	 * экран
+	 * display
 	 */
 	piano.Msg = new MessageSystem('js-info-window', true);
 
 	/**
-	 * загрузчик звуков
+	 * sound loader
 	 */
 	piano.LoadingInfo = new LoaderInfo([
-		{'data': piano.KeyboardPCControls_WhiteKeys, 'msg': piano.l.g('LoadingWhiteKeys')},
-		{'data': piano.KeyboardPCControls_BlackKeys, 'msg': piano.l.g('LoadingBlackKeys')}
-	], piano.l.g('Loading_Done'), function() {
+		{ 'data': piano.KeyboardPCControls_WhiteKeys, 'msg': piano.l.g('LoadingWhiteKeys') },
+		{ 'data': piano.KeyboardPCControls_BlackKeys, 'msg': piano.l.g('LoadingBlackKeys') }
+	], piano.l.g('Loading_Done'), function () {
 		piano.Msg.Show(piano.l.g('AllComplete'))
 	});
 
 	/**
-	 * звук
+	 * sound
 	 */
 	piano.LiveSoundProcessor = new SoundProcessor();
 
 	/**
-	 * глобальный слушатель кликов мыши
+	 * global mouse click listener
 	 */
-	document.addEvent('mousedown', function(e) {
+	document.addEvent('mousedown', function (e) {
 		piano.isMouseDown = true;
-	}).addEvent('mouseup', function(e) {
+	}).addEvent('mouseup', function (e) {
 		piano.isMouseDown = false;
 	});
 
 	/**
-	 * клик мыши по белым клавишам
+	 * mouse click on white keys
 	 */
 	var KeyboardWhiteControls = $$('.js-white-key');
 	var KeyboardWhiteLength = KeyboardWhiteControls.length;
-	for (var ic = 0; ic < KeyboardWhiteLength; ic ++) {
-		KeyboardWhiteControls [ic].KeyLogicNumber = ic;
-		KeyboardWhiteControls [ic].id = piano.GetKeyId('white', ic);
 
-		KeyboardWhiteControls [ic].onmouseover = function() {
+	for (var ic = 0; ic < KeyboardWhiteLength; ic++) {
+		KeyboardWhiteControls[ic].KeyLogicNumber = ic;
+		KeyboardWhiteControls[ic].id = piano.GetKeyId('white', ic);
+
+		KeyboardWhiteControls[ic].onmouseover = function () {
 			if (piano.isMouseDown) {
 				piano.MadeSoundFromWhiteKey(this.KeyLogicNumber);
 			}
 		};
-		KeyboardWhiteControls [ic].onmousedown = function() {
+		KeyboardWhiteControls[ic].onmousedown = function () {
 			piano.MadeSoundFromWhiteKey(this.KeyLogicNumber);
 		};
-		KeyboardWhiteControls [ic].onmouseout = function() {
+		KeyboardWhiteControls[ic].onmouseout = function () {
 			piano.StopSoundFromWhiteKey(this.KeyLogicNumber);
 		};
-		KeyboardWhiteControls [ic].onmouseup = function() {
+		KeyboardWhiteControls[ic].onmouseup = function () {
 			piano.StopSoundFromWhiteKey(this.KeyLogicNumber);
 		};
 	}
 
 	/**
-	 * клик мыши по черным клавишам
+	 * mouse click on black keys
 	 */
 	var KeyboardBlackControls = $$('.js-black-key');
 	var KeyboardBlackLength = KeyboardBlackControls.length;
-	for (ic = 0; ic < KeyboardBlackLength; ic ++) {
-		KeyboardBlackControls [ic].KeyLogicNumber = ic;
-		KeyboardBlackControls [ic].id = piano.GetKeyId('black', ic);
 
-		KeyboardBlackControls [ic].onmouseover = function() {
+	for (ic = 0; ic < KeyboardBlackLength; ic++) {
+		KeyboardBlackControls[ic].KeyLogicNumber = ic;
+		KeyboardBlackControls[ic].id = piano.GetKeyId('black', ic);
+
+		KeyboardBlackControls[ic].onmouseover = function () {
 			if (piano.isMouseDown) {
 				piano.MadeSoundFromBlackKey(this.KeyLogicNumber);
 			}
 		};
-		KeyboardBlackControls [ic].onmousedown = function() {
+		KeyboardBlackControls[ic].onmousedown = function () {
 			piano.MadeSoundFromBlackKey(this.KeyLogicNumber);
 		};
-		KeyboardBlackControls [ic].onmouseout = function() {
+		KeyboardBlackControls[ic].onmouseout = function () {
 			piano.StopSoundFromBlackKey(this.KeyLogicNumber);
 		};
-		KeyboardBlackControls [ic].onmouseup = function() {
+		KeyboardBlackControls[ic].onmouseup = function () {
 			piano.StopSoundFromBlackKey(this.KeyLogicNumber);
 		};
 	}
 
 	/**
-	 * нажатия клавиатуры
+	 * keyboard presses
 	 */
 	function KeyboardControlService(Event) {
 		if (!Event.control && !Event.shift && piano.MadeTranslitPCKeyboardToPiano(Event.code, Event.type) === true) {
 			Event.stop();
 		}
 	}
-	document.addEvents({'keydown': KeyboardControlService, 'keyup': KeyboardControlService});
+
+	document.addEvents({ 'keydown': KeyboardControlService, 'keyup': KeyboardControlService });
 
 	/**
-	 * регулятор громкости
+	 * volume control
 	 */
 	new RoundedFader($('js-volume-fader'), 0, 100, piano.LiveSoundProcessor.Options.Volume, function (iNewVolume) {
-		piano.Msg.Show(piano.l.g('Volume', {val: iNewVolume}));
+		piano.Msg.Show(piano.l.g('Volume', { val: iNewVolume }));
 		piano.LiveSoundProcessor.Options.Volume = iNewVolume;
 		soundManager.setVolume(iNewVolume);
 	}, 'metal-knob');
 
 	/**
-	 * регулятор справки по клавишам
+	 * key help regulator
 	 */
-	new RoundedFader($('js-key-help-switch'), 0, 1, 0, function(iEnabled) {
+	new RoundedFader($('js-key-help-switch'), 0, 1, 0, function (iEnabled) {
 		if (iEnabled) {
 			piano.Msg.Show(piano.l.g('ShowHelp'));
-			piano.KeyboardPCControls_WhiteKeys.forEach(function(i, k) {
-				new Element('div', {class: 'key-helper on-white-key js-key-helper', 'html': piano.KeyboardPCControls_WhiteKeysLetters[k]}).inject(piano.GetKeyId('white', k));
+			piano.KeyboardPCControls_WhiteKeys.forEach(function (i, k) {
+				new Element('div', { class: 'key-helper on-white-key js-key-helper', 'html': piano.KeyboardPCControls_WhiteKeysLetters[k] }).inject(piano.GetKeyId('white', k));
 			});
-			piano.KeyboardPCControls_BlackKeys.forEach(function(i, k) {
-				new Element('div', {class: 'key-helper on-black-key js-key-helper', 'html': piano.KeyboardPCControls_BlackKeysLetter[k]}).inject(piano.GetKeyId('black', k));
+			piano.KeyboardPCControls_BlackKeys.forEach(function (i, k) {
+				new Element('div', { class: 'key-helper on-black-key js-key-helper', 'html': piano.KeyboardPCControls_BlackKeysLetter[k] }).inject(piano.GetKeyId('black', k));
 			});
 		} else {
 			piano.Msg.Show(piano.l.g('HideHelp'));
-			$$ ('.js-key-helper').destroy();
+			$$('.js-key-helper').destroy();
 		}
 	}, 'metal-knob keys-help');
 
 });
 
-/**
- * --- Пре настройки SM ---
- */
 
 soundManager.url = 'frontend/vendor/soundmanager2/';
 soundManager.useHTML5Audio = true;

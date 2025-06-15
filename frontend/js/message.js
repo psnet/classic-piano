@@ -1,17 +1,17 @@
 /**
  * Classic Piano
  *
- * @copyright Serge Pustovit (PSNet), 2008 - 2015
- * @author    Serge Pustovit (PSNet) <light.feel@gmail.com>
+ * @copyright Serhii Pustovit (PSNet), 2008 - 2015
+ * @author    Serhii Pustovit (PSNet) <light.feel@gmail.com>
  *
- * @link      http://psnet.lookformp3.net
+ * @link      https://github.com/psnet
  */
 
 var MessageSystem = new Class({
 	iMsgWindowId: null,
 	bDebugEnabled: false,
 	/**
-	 * ид для таймаута очистки сообщения
+	 * id for message clear timeout
 	 */
 	iTimeOutId: null,
 	/**
@@ -21,41 +21,42 @@ var MessageSystem = new Class({
 
 
 	/**
-	 * Первичная настройка
+	 * Init
+	 * 
 	 * @param iMsgWindowId
 	 * @param bDebug
 	 */
-	initialize: function(iMsgWindowId, bDebug) {
+	initialize: function (iMsgWindowId, bDebug) {
 		this.iMsgWindowId = iMsgWindowId;
 		this.bDebugEnabled = bDebug || false;
 	},
 
 
 	/**
-	 * Вывести сообщение
+	 * Display message
 	 *
 	 * @param Msg
 	 */
-	Show: function(Msg) {
+	Show: function (Msg) {
 		$(this.iMsgWindowId).set('html', Msg.trim());
 		this.LaterCleanMessageWindow();
 	},
 
 
 	/**
-	 * Очистить экран
+	 * Clear display
 	 */
-	Clean: function() {
+	Clean: function () {
 		$(this.iMsgWindowId).set('html', '');
 	},
 
 
 	/**
-	 * Отладка
+	 * Debug
 	 *
 	 * @param Msg
 	 */
-	Debug: function(Msg) {
+	Debug: function (Msg) {
 		if (this.bDebugEnabled) {
 			this.Show("DEBUG: " + Msg);
 		}
@@ -63,12 +64,14 @@ var MessageSystem = new Class({
 
 
 	/**
-	 * Отложенная очистка экрана
+	 * Delayed screen clearing
 	 */
-	LaterCleanMessageWindow: function() {
+	LaterCleanMessageWindow: function () {
 		var oThis = this;
+
 		clearTimeout(this.iTimeOutId);
-		this.iTimeOutId = setTimeout(function() {
+
+		this.iTimeOutId = setTimeout(function () {
 			oThis.Clean();
 		}, this.TimeForAutoCleaningWindow);
 	}

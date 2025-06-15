@@ -1,10 +1,10 @@
 /**
  * Classic Piano
  *
- * @copyright Serge Pustovit (PSNet), 2008 - 2015
- * @author    Serge Pustovit (PSNet) <light.feel@gmail.com>
+ * @copyright Serhii Pustovit (PSNet), 2008 - 2015
+ * @author    Serhii Pustovit (PSNet) <light.feel@gmail.com>
  *
- * @link      http://psnet.lookformp3.net
+ * @link      https://github.com/psnet
  */
 
 var SoundProcessor = new Class({
@@ -19,17 +19,17 @@ var SoundProcessor = new Class({
 
 
 	/**
-	 * Первичная настройка
+	 * Init
 	 */
-	initialize: function() {
+	initialize: function () {
 		var oThis = this;
 
-		soundManager.ontimeout(function() {
+		soundManager.ontimeout(function () {
 			// SM2 failed to start - error, unsupported etc.
 			piano.LoadingInfo.WriteMessageToLoadScreen(piano.l.g('LoadingSWFModulesFailed'));
 		});
 
-		soundManager.onready(function() {
+		soundManager.onready(function () {
 			/**
 			 * change default settings for all
 			 */
@@ -42,18 +42,19 @@ var SoundProcessor = new Class({
 			//soundManager.defaultOptions.multiShot = false;
 
 			/**
-			 * звуки для белых клавиш
+			 * sounds for white keys
 			 */
-			for (var ic = 0; ic < piano.KeyboardPCControls_WhiteKeys.length; ic ++) {
+			for (var ic = 0; ic < piano.KeyboardPCControls_WhiteKeys.length; ic++) {
 				soundManager.createSound(
 					oThis.Options.WhiteKey_StringID + ic,
 					oThis.Options.URLToSound + oThis.Options.WhiteKey_FileNamesStartsWith + ic + '.mp3'
 				);
 			}
+
 			/**
-			 * звуки для черных клавиш
+			 * sounds for black keys
 			 */
-			for (ic = 0; ic < piano.KeyboardPCControls_BlackKeys.length; ic ++) {
+			for (ic = 0; ic < piano.KeyboardPCControls_BlackKeys.length; ic++) {
 				soundManager.createSound(
 					oThis.Options.BlackKey_StringID + ic,
 					oThis.Options.URLToSound + oThis.Options.BlackKey_FileNamesStartsWith + ic + '.mp3'
@@ -64,21 +65,21 @@ var SoundProcessor = new Class({
 
 
 	/**
-	 * Хендлер процесса загрузки аудио
+	 * Audio loading process handler
 	 */
-	whileLoading: function() {
+	whileLoading: function () {
 
 	},
 
 
 	/**
-	 * Хендлер загрузки одного аудио
+	 * Single audio load handler
 	 *
 	 * @param bSuccess
 	 */
-	onLoad: function(bSuccess) {
+	onLoad: function (bSuccess) {
 		/**
-		 * трек загружен успешно
+		 * track uploaded successfully
 		 */
 		if (bSuccess) {
 			piano.LoadingInfo.UpdateLoadstatus();
@@ -89,17 +90,17 @@ var SoundProcessor = new Class({
 
 
 	/**
-	 * Хендлер процесса воспроизведения аудио
+	 * Audio playback process handler
 	 */
-	whilePlaying: function() {
+	whilePlaying: function () {
 
 	},
 
 
 	/**
-	 * Хендлер окончания воспроизведения аудио
+	 * Audio playback end handler
 	 */
-	onFinish: function() {
+	onFinish: function () {
 
 	}
 
